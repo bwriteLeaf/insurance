@@ -107,8 +107,11 @@ def addLeafCols(inPath,outPath,leafPath,trainPath,is_Train=False,in_cnt = 20000)
     print(colsadd)
     if in_cnt > 0:
         data_in = data_in[:in_cnt]
-    
     # 这里增加了筛选
+    data_in = data_in[data_in.ti_real<0.3]  ##train(150956,130) test(37778,130)
+    data_in = data_in[data_in.ri<0.2]   ##train(150200,130) test(37585,130)
+
+
     for i in range(len(data_in)):
         _list = []
         ft = obtainSameLeafT(i,leaf_train,leaf_test,ti_real_list,sameCnt = sameCnt)
@@ -128,13 +131,17 @@ def addLeafCols(inPath,outPath,leafPath,trainPath,is_Train=False,in_cnt = 20000)
 
 
 if __name__ == "__main__":
+    import os
+    os.chdir("data")
     # reLabel('new_train__v8e.csv','new_train__v9e.csv')
     # reLabel('new_test__v8e.csv','new_test__v9e.csv')
     # reLabel('new_train__v8.csv', 'new_train__v10.csv',is_double=True)
     # reLabel('new_test__v8.csv', 'new_test__v10.csv',is_double=True)
 
-    addLeafCols('new_test__v8.csv', 'new_test__v8f.csv', 'new_leaf__v8.npy', 'new_train__v8.csv', is_Train=False)
-    # addLeafCols('new_train__v8.csv', 'new_train__v8f.csv', 'new_leaf__v8.npy', 'new_train__v8.csv', is_Train=False)
+    # addLeafCols('new_test__v8.csv', 'new_test__v8f.csv', 'new_leaf__v8.npy',
+    #             'new_train__v8.csv', is_Train=False, in_cnt=-2)
+    addLeafCols('new_train__v8.csv', 'new_train__v8f.csv', 'new_leaf__v8.npy',
+                'new_train__v8.csv', is_Train=False, in_cnt=-2)
 
 
 
