@@ -1,0 +1,14 @@
+
+*.xml
+.gitattributes
+.DS_Store
+*./fig_deta_new/
+*.pyc
+*.iml
+*.png
+*.ppt
+*.docx
+results/
+.\fig_deta_new\reult_alpha1_mu1_phi0_deta1.txt
+data/
+保险代码-7-19副本/
