@@ -15,7 +15,6 @@ import pandas as pd
 import tensorflow as tf
 import os
 
-savePath = "results/"
 np.random.seed(1)
 tf.set_random_seed(1)
 
@@ -234,7 +233,7 @@ class DeepQNetwork:
         fig, ax = plt.subplots()
         ax.plot(np.arange(len(self.cost_his)), self.cost_his)
         ax.set(xlabel='training steps', ylabel='Cost')
-        fig.savefig(os.path.join(savePath, 'Cost' + "_one.png"))
+        fig.savefig('Cost' + "_one.png")
         #plt.show()
 
     def plotReward(self,rewards,ylabel):

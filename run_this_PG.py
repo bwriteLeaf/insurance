@@ -36,7 +36,7 @@ def runTest(Train = True):
 
     for episode in range(episode_cnt_use):
         # initial observation
-        observation = env.reset(test=True)  ##feature数组
+        observation = env.reset(Train)  ##feature数组
         volume_episode_cnt = [0, 0, 0, 0,0]
         pay_episode_cnt = [0, 0, 0, 0, 0]
         income_episode_cnt = [0, 0, 0, 0, 0]
