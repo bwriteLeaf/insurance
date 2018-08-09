@@ -158,6 +158,8 @@ class PolicyGradient:
                     self.tf_vt: discounted_ep_rs_norm,  # shape=[None, ]
                 })
                 print(batch_i,losss)
+        self.ep_obs, self.ep_as, self.ep_rs = [], [], []  # empty episode data
+        return discounted_ep_rs_norm
 
     def _discount_and_norm_rewards(self):
         # discount episode rewards

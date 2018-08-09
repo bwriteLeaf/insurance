@@ -70,11 +70,11 @@ def runTest(Train = True):
             # pf_cmp1, i_cmp1, py_cmp1, v_cmp1, pf_p1, v_p1 = env.getAction_Profit(env.getBaseAction())
             pf_cmp2, i_cmp2, py_cmp2, v_cmp2, pf_p2, v_p2 = env.getAction_Profit(env.getBaseAction_f(),isFloat=True)
             pf_cmp1, i_cmp1, py_cmp1, v_cmp1, pf_p1, v_p1 = 0,0,0,0,0,0
-            if (is_Theory) and (not Train):
-                pf_cmp3, i_cmp3, py_cmp3, v_cmp3, pf_p3, v_p3 = env.getAction_Profit(env.getTheoryPrice(), isFloat=True)
-                x_all[3].append(env.getAction_Income(env.getTheoryPrice(), isFloat=True))
-            else:
-                pf_cmp3, i_cmp3, py_cmp3, v_cmp3, pf_p3, v_p3 = 0, 0, 0, 0, 0, 0
+            # if (is_Theory) and (not Train):
+            #     pf_cmp3, i_cmp3, py_cmp3, v_cmp3, pf_p3, v_p3 = env.getAction_Profit(env.getTheoryPrice(), isFloat=True)
+            #     x_all[3].append(env.getAction_Income(env.getTheoryPrice(), isFloat=True))
+            # else:
+            pf_cmp3, i_cmp3, py_cmp3, v_cmp3, pf_p3, v_p3 = 0, 0, 0, 0, 0, 0
 
             i_cmp_list = [i_cmp0, i_cmp1, i_cmp2, i_cmp3]
             py_cmp_list = [py_cmp0, py_cmp1, py_cmp2, py_cmp3]
@@ -103,9 +103,9 @@ def runTest(Train = True):
                 RL.store_transition(observation, action, reward)
 
             if Train and AGENT == "DQN":
-                    RL.store_transition(observation, action, reward, observation_)
-                    if (step > replace_target_iter) and (step % 5 == 0):
-                        RL.learn()
+                RL.store_transition(observation, action, reward, observation_)
+                if (step > replace_target_iter) and (step % 5 == 0):
+                    RL.learn()
 
             # break while loop when end of this episode
             if done:
@@ -132,19 +132,19 @@ def runTest(Train = True):
     # end of game
     print('game over')
     text = ("" if not Train else "_train")
-    drawXT([r_all], t_all, LEGEND, "r", "t" + text, avg=False)
+    # drawXT([r_all], t_all, LEGEND, "r", "t" + text, avg=False)
     Draw.plotMulti(profit_episode[:n], "rewards_episode" + text, legend=LEGEND[:n])
     if Train and AGENT == "DQN":
         RL.plot_cost()
     if not Train:
-        drawXT(x_all, r_all, LEGEND, "r", "x", avg=True)
-        drawXT(profit_all, r_all, LEGEND, "r", "profit", avg=True)
-        drawXT(x_all, t_all, LEGEND, "t", "x", avg=True)
+        # drawXT(x_all, r_all, LEGEND, "r", "x", avg=True)
+        # drawXT(profit_all, r_all, LEGEND, "r", "profit", avg=True)
+        # drawXT(x_all, t_all, LEGEND, "t", "x", avg=True)
         drawXT(profit_all, t_all, LEGEND, "t", "profit", avg=True)
 
         Draw.plotMulti(volume_episode[:n], "volume_episode_test", legend=LEGEND[:n])
-        Draw.plotMulti(pay_episode[:n], "pay_episode_test", legend=LEGEND[:n])
-        Draw.plotMulti(income_episode[:n], "income_episode_test", legend=LEGEND[:n])
+        # Draw.plotMulti(pay_episode[:n], "pay_episode_test", legend=LEGEND[:n])
+        # Draw.plotMulti(income_episode[:n], "income_episode_test", legend=LEGEND[:n])
 
     print_list = list(
         map(lambda i: list(map(lambda x: np.mean(x), [profit_episode[i], pay_episode[i], income_episode[i],
@@ -202,7 +202,7 @@ def getAvgXT(raw_t,raw_x,):
 if __name__ == "__main__":
     # maze game
 
-    env = Insurance(num_episode = 20000,type = TYPE)
+    env = Insurance(num_episode = -20000,type = TYPE)
     if AGENT == "PG":
         RL = PolicyGradient(
             n_actions=env.n_actions,
